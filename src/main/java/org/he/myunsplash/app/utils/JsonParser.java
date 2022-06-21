@@ -21,10 +21,10 @@ public class JsonParser {
     private Path dbJsonPath = Paths.get("src/main/java/org/he/myunsplash/app/dao/data/db.json");
 
 
-    public void writeJSON(Photo photo) {
-        System.out.println("writeJSON() #photo: " + photo);
+    public void writeToJSON(List<Photo> photos) {
+        System.out.println("writeJSON()");
         try {
-            mapper.writeValue(dbJsonPath.toFile(), photo);
+            mapper.writeValue(dbJsonPath.toFile(), photos.toArray());
         } catch (Exception ex) {
             System.out.println("writeJSON() #ex: " + ex);
         }

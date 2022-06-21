@@ -20,9 +20,13 @@ public class MyUnsplashController {
     UnsplashService unsplashService;
 
     @GetMapping("/photos")
-    List<Photo> getPhotos() {
-        return unsplashService.getAllPhotos();
+    List<Photo> getPhotosByKeyword(@RequestParam(value = "keyword", defaultValue = "")String keyword) {
+        if (keyword.equals("")) { return unsplashService.getAllPhotos(); }
+
+        return unsplashService.getByKeyword(keyword);
     }
+
+
 
     @PostMapping("/photos")
     public Photo savePhoto(@RequestBody Photo photo) {
