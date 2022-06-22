@@ -31,7 +31,7 @@ public class JsonParser {
     }
 
     public List<Photo> readFromJSON() {
-        System.out.println("readFronJSON()");
+        System.out.println("readFromJSON()");
         try {
             return Arrays.asList(mapper.readValue(dbJsonPath.toFile(), Photo[].class));
         } catch (Exception ex) {
