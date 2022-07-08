@@ -33,7 +33,11 @@ public class JsonParser {
     public List<Photo> readFromJSON() {
         System.out.println("readFromJSON()");
         try {
-            return Arrays.asList(mapper.readValue(dbJsonPath.toFile(), Photo[].class));
+            var photosArray = mapper.readValue(dbJsonPath.toFile(), Photo[].class);
+            var photos = new ArrayList<Photo>();
+            Arrays.stream(photosArray).forEach(photos::add);
+
+            return photos;
         } catch (Exception ex) {
             System.out.println("readFromJSON() EXCEPTION #ex: " + ex);
             return List.of();

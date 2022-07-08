@@ -2,10 +2,13 @@ package org.he.myunsplash.app.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.he.myunsplash.app.model.Photo;
 import org.he.myunsplash.app.utils.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Data
 @NoArgsConstructor
 @Service
@@ -35,10 +39,19 @@ public class UnsplashService {
     }
 
     public Photo saveNewPhoto(Photo photo) {
+        log.info("🚧 saveNewPhoto() #photo: " + photo);
         var photos = jsonParser.readFromJSON();
-        photos.add(0, photo);
-        jsonParser.writeToJSON(photos);
+
+        try {
+            photos.add(0, photo);
+            jsonParser.writeToJSON(photos);
+        } catch (Exception exception) {
+            log.info("🚫 saveNewPhoto() #ex: ", exception);
+        }
+
 
         return jsonParser.readFromJSON().get(0);
     }
+
+
 }
