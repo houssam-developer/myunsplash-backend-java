@@ -53,5 +53,23 @@ public class UnsplashService {
         return jsonParser.readFromJSON().get(0);
     }
 
+    public Boolean deletePhoto(String id) {
+        log.info("🚧 deletePhoto() #id: " + id);
 
+        try {
+
+            var photosUpdated = jsonParser
+                    .readFromJSON()
+                    .stream()
+                    .filter(it -> it.getId() != id)
+                    .collect(Collectors.toList());
+
+            jsonParser.writeToJSON(photosUpdated);
+
+        } catch(Exception exception) {
+            log.info("🚫 deletePhoto() #exception: " + exception);
+        }
+
+        return false;
+    }
 }

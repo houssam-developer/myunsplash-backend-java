@@ -60,8 +60,13 @@ public class MyUnsplashRestController {
     }
 
     @DeleteMapping("/photos/{id}")
-    public void deletePhoto(@PathVariable String id) {
+    public ResponseEntity deletePhoto(@PathVariable String id) {
         log.info("📡 deletePhoto() #id: " + id);
-        // delete from json
+
+        if (unsplashService.deletePhoto(id)) {
+            return new ResponseEntity(HttpStatus.ACCEPTED);
+        } else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
 }
