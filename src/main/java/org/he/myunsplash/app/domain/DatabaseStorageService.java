@@ -23,7 +23,7 @@ public class DatabaseStorageService implements StorageService{
     @Override
     public List<Photo> getAllPhotos() {
         try {
-            return photoRepository.findAll();
+            return photoRepository.findAllByOrderByIdDesc();
         } catch(Exception exception) {
             log.info("🚫 getAllPhotos() #exception: " + exception);
             return List.of();

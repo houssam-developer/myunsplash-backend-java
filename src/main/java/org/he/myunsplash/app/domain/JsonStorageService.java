@@ -41,6 +41,7 @@ public class JsonStorageService implements StorageService {
     @Override
     public Photo saveNewPhoto(Photo photo) {
         log.info("🚧 saveNewPhoto() #photo: " + photo);
+
         var photos = jsonParser.readFromJSON();
         photo.setId(Math.round(Math.random() * 100));
 
@@ -50,7 +51,6 @@ public class JsonStorageService implements StorageService {
         } catch (Exception exception) {
             log.info("🚫 saveNewPhoto() #ex: ", exception);
         }
-
 
         return jsonParser.readFromJSON().get(0);
     }
