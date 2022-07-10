@@ -2,6 +2,7 @@ package org.he.myunsplash.app.web;
 
 
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.he.myunsplash.app.domain.UnsplashService;
 import org.he.myunsplash.app.model.Photo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class MyUnsplashRestController {
 
     @GetMapping("/photos")
     ResponseEntity getPhotosByKeyword(@RequestParam(value = "keyword", defaultValue = "")String keyword) {
+        log.info("📡 [GET] getPhotosByKeyword() #");
         var photos = new HashMap<String, List<Photo>>();
         if (keyword.equals("")) {
             photos.put("photos", unsplashService.getAllPhotos());
@@ -37,7 +39,7 @@ public class MyUnsplashRestController {
 
     @PostMapping("/photos")
     public ResponseEntity<Object> savePhoto(@RequestBody Photo photo) {
-        System.out.println("POST ====");
+        log.info("📡 [POST] savePhoto()");
         if (photo == null) {
             System.out.println("savePhoto() #photo is null");
             return new ResponseEntity<>(HttpEntity.EMPTY, HttpStatus.NO_CONTENT);
@@ -55,18 +57,18 @@ public class MyUnsplashRestController {
 
         unsplashService.saveNewPhoto(photo);
         return new ResponseEntity<>(HttpStatus.CREATED);
-
-       // return unsplashService.saveNewPhoto(photo);
     }
 
     @DeleteMapping("/photos/{id}")
     public ResponseEntity deletePhoto(@PathVariable String id) {
-        log.info("📡 deletePhoto() #id: " + id);
+        log.info("📡 [DELETE] deletePhoto() #id: " + id);
 
-        if (unsplashService.deletePhoto(id)) {
-            return new ResponseEntity(HttpStatus.ACCEPTED);
-        } else {
+        val photos = unsplashService.deletePhoto(id);
+        if (photos.isEmpty()) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
+
+        return new ResponseEntity(photos, HttpStatus.ACCEPTED);
+
     }
 }

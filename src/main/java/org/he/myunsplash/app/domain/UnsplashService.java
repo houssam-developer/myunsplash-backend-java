@@ -30,6 +30,10 @@ public class UnsplashService {
     public List<Photo> getByKeyword(String keyword) {
         System.out.println("getByKeyword() #keyword: " + keyword);
         String keywordVal = keyword.toLowerCase();
+        return getPhotos(keywordVal);
+    }
+
+    private List<Photo> getPhotos(String keywordVal) {
         return jsonParser.readFromJSON()
                 .stream()
                 .filter(it -> it.getLabel().contains(keywordVal))
@@ -39,7 +43,7 @@ public class UnsplashService {
     public Photo saveNewPhoto(Photo photo) {
         log.info("🚧 saveNewPhoto() #photo: " + photo);
         var photos = jsonParser.readFromJSON();
-        photo.setId(String.valueOf(Math.floor(Math.random() * 10) + LocalDate.now().toString()));
+        photo.setId(Math.round(Math.random() * 100));
 
         try {
             photos.add(0, photo);
@@ -52,7 +56,7 @@ public class UnsplashService {
         return jsonParser.readFromJSON().get(0);
     }
 
-    public Boolean deletePhoto(String id) {
+    public List<Photo> deletePhoto(String id) {
         log.info("🚧 deletePhoto() #id: " + id);
 
         try {
@@ -64,11 +68,11 @@ public class UnsplashService {
                     .collect(Collectors.toList());
 
             jsonParser.writeToJSON(photosUpdated);
+            return getPhotos("");
 
         } catch(Exception exception) {
             log.info("🚫 deletePhoto() #exception: " + exception);
+            return List.of();
         }
-
-        return false;
     }
 }
