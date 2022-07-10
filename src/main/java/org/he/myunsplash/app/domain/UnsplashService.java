@@ -10,10 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -41,6 +39,7 @@ public class UnsplashService {
     public Photo saveNewPhoto(Photo photo) {
         log.info("🚧 saveNewPhoto() #photo: " + photo);
         var photos = jsonParser.readFromJSON();
+        photo.setId(String.valueOf(Math.floor(Math.random() * 10) + LocalDate.now().toString()));
 
         try {
             photos.add(0, photo);
@@ -61,7 +60,7 @@ public class UnsplashService {
             var photosUpdated = jsonParser
                     .readFromJSON()
                     .stream()
-                    .filter(it -> it.getId() != id)
+                    .filter(it -> !it.getId().equals(id) )
                     .collect(Collectors.toList());
 
             jsonParser.writeToJSON(photosUpdated);
