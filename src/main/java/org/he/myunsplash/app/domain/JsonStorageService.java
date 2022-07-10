@@ -7,26 +7,24 @@ import org.he.myunsplash.app.model.Photo;
 import org.he.myunsplash.app.utils.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Data
 @NoArgsConstructor
-@Service
-public class UnsplashService {
+public class JsonStorageService implements StorageService {
 
     @Autowired
     JsonParser jsonParser;
 
+    @Override
     public List<Photo> getAllPhotos() {
         return jsonParser.readFromJSON();
     }
 
+    @Override
     public List<Photo> getByKeyword(String keyword) {
         System.out.println("getByKeyword() #keyword: " + keyword);
         String keywordVal = keyword.toLowerCase();
@@ -40,6 +38,7 @@ public class UnsplashService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public Photo saveNewPhoto(Photo photo) {
         log.info("🚧 saveNewPhoto() #photo: " + photo);
         var photos = jsonParser.readFromJSON();
@@ -56,7 +55,8 @@ public class UnsplashService {
         return jsonParser.readFromJSON().get(0);
     }
 
-    public List<Photo> deletePhoto(String id) {
+    @Override
+    public void deletePhoto(Long id) {
         log.info("🚧 deletePhoto() #id: " + id);
 
         try {
@@ -68,11 +68,9 @@ public class UnsplashService {
                     .collect(Collectors.toList());
 
             jsonParser.writeToJSON(photosUpdated);
-            return getPhotos("");
 
         } catch(Exception exception) {
             log.info("🚫 deletePhoto() #exception: " + exception);
-            return List.of();
         }
     }
 }
