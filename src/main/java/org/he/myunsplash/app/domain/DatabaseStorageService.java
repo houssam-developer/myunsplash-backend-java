@@ -1,11 +1,9 @@
 package org.he.myunsplash.app.domain;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.he.myunsplash.app.dao.repository.PhotoRepository;
 import org.he.myunsplash.app.model.Photo;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,8 +30,9 @@ public class DatabaseStorageService implements StorageService{
 
     @Override
     public List<Photo> getByKeyword(String keyword) {
+        log.info("🚧 getByKeyword() #keyword: " + keyword);
         try {
-            return photoRepository.findByKeyword(keyword, Pageable.ofSize(10)).stream().toList();
+            return photoRepository.findByLabelContainingIgnoreCase(keyword);
         } catch(Exception exception) {
             log.info("🚫 getByKeyword() #exception: " + exception);
             return List.of();
