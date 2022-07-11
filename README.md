@@ -49,11 +49,11 @@ And I hope to make more beautifuls websites and become an expert in full-stack d
 
 <!-- This section should list any major frameworks that you built your project using. Here are a few examples.-->
 
-- [Node.js](https://nodejs.org/)
-- [ExpressJS] (https://expressjs.com/)
-- [CORS] (https://github.com/expressjs/cors#readme)
-- [Node-Schedule] (https://www.npmjs.com/package/node-schedule)
-- [Axios] (https://axios-http.com/docs/intro)
+- [Java 17] (www.java.com)
+- [Spring](https://spring.io/)
+- [Hibernate] (https://hibernate.org/)
+- [H2] (https://www.h2database.com/html/main.html)
+- [Lombok] (https://projectlombok.org/)
 
 ## Features
 
@@ -91,11 +91,11 @@ $ mvn clean install
 
 <!-- This section should list any articles or add-ons/plugins that helps you to complete the project. This is optional but it will help you in the future. For example -->
 
-- [Node.js](https://nodejs.org/)
-- [ExpressJS] (https://expressjs.com/)
-- [CORS] (https://github.com/expressjs/cors#readme)
-- [Node-Schedule] (https://www.npmjs.com/package/node-schedule)
-- [Axios] (https://axios-http.com/docs/intro)
+- [Java 17] (www.java.com)
+- [Spring](https://spring.io/)
+- [Hibernate] (https://hibernate.org/)
+- [H2] (https://www.h2database.com/html/main.html)
+- [Lombok] (https://projectlombok.org/)
 
 ## Contact
 
